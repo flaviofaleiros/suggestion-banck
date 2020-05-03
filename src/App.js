@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Scope } from "@unform/core";
+import { Form } from "@unform/web";
+import Input from "./components/Input";
+import "./styles.css"
 
-function App() {
+export default function App() {
+  function handleSubmit(data, { reset }) {
+    console.log(data);
+
+    reset();
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Form onSubmit={handleSubmit}>
+        <img
+            src="https://image.flaticon.com/icons/svg/2654/2654500.svg"
+            height="150"
+            width="175"
+            alt="Unform"
+        />
+
+        <Input name="titulo" label="Titulo" />
+        <Input name="comentario" label="Comentario" style={{ height: "300px" }} />
+        <input type="file" />
+
+
+
+        <button type="submit">Salvar</button>
+      </Form>
   );
 }
-
-export default App;

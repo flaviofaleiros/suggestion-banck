@@ -1,33 +1,36 @@
-
 const ApiService = {
 
-	ListaAutores: () => {
-		return fetch('http://localhost:8000/api/autor')
-			.then(res => ApiService.TrataErros(res))
+	listSuggestion: () => {
+		return fetch('http://localhost:8000/api/suggestion')
+			.then(res => ApiService.handlesErrors(res))
 			.then(res => res.json())
 
 	},
-	CriaAutor: autor => {
-		return fetch('http://localhost:8000/api/autor', { method: 'POST', headers: { 'content-type': 'application/json' }, body: autor })
-			.then(res => ApiService.TrataErros(res))
+	createSuggestion: suggestion => {
+		return fetch('http://localhost:8000/api/suggestion',
+			{ method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: suggestion })
+			.then(res => ApiService.handlesErrors(res))
 			.then(res => res.json());
 	},
-	ListaNomes: () => {
-		return fetch('http://localhost:8000/api/autor/nome')
-			.then(res => ApiService.TrataErros(res))
+	updateSuggestion: id => {
+		return fetch(`http://localhost:8000/api/autor/${id}`,
+			{ method: 'PUT',
+				headers: { 'content-type': 'application/json' },
+			})
+			.then(res => ApiService.handlesErrors(res))
 			.then(res => res.json());
 	},
-	ListaLivros: () => {
-		return fetch('http://localhost:8000/api/autor/livro')
-			.then(res => ApiService.TrataErros(res))
+	deleteSuggestion: id => {
+		return fetch(`http://localhost:8000/api/autor/${id}`,
+			{ method: 'DELETE',
+				headers: { 'content-type': 'application/json' },
+			})
+			.then(res => ApiService.handlesErrors(res))
 			.then(res => res.json());
 	},
-	RemoveAutor: id => {
-		return fetch(`http://localhost:8000/api/autor/${id}`, { method: 'DELETE', headers: { 'content-type': 'application/json' }, })
-			.then(res => ApiService.TrataErros(res))
-			.then(res => res.json());
-	},
-	TrataErros: res => {
+	handlesErrors: res => {
 		if (!res.ok) {
 			throw Error(res.responseText);
 		}
